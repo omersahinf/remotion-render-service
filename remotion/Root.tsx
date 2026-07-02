@@ -13,6 +13,11 @@ import {BgSwap, bgSwapDefaults} from './scenes/BgSwap';
 import {SplitCompare, splitCompareDefaults} from './scenes/SplitCompare';
 import {Markup, markupDefaults} from './scenes/Markup';
 
+import {HeroTitleTraverse, heroTitleTraverseDefaults} from './scenes/HeroTitleTraverse';
+import {EnumerationPanels, enumerationPanelsDefaults} from './scenes/EnumerationPanels';
+import {ImpactNumber, impactNumberDefaults} from './scenes/ImpactNumber';
+import {PastTenseOpening, pastTenseOpeningDefaults} from './scenes/PastTenseOpening';
+
 // Every scene reads its length from inputProps.durationInFrames (the Groq beat
 // length), so the n8n side controls duration without re-registering.
 const durationFromProps = ({
@@ -104,6 +109,35 @@ export const RemotionRoot: React.FC = () => {
         id="Markup"
         component={Markup}
         defaultProps={markupDefaults}
+        calculateMetadata={durationFromProps}
+        {...common}
+      />
+
+      <Composition
+        id="HeroTitleTraverse"
+        component={HeroTitleTraverse}
+        defaultProps={heroTitleTraverseDefaults}
+        calculateMetadata={durationFromProps}
+        {...common}
+      />
+      <Composition
+        id="EnumerationPanels"
+        component={EnumerationPanels}
+        defaultProps={enumerationPanelsDefaults}
+        calculateMetadata={durationFromProps}
+        {...common}
+      />
+      <Composition
+        id="ImpactNumber"
+        component={ImpactNumber}
+        defaultProps={impactNumberDefaults}
+        calculateMetadata={durationFromProps}
+        {...common}
+      />
+      <Composition
+        id="PastTenseOpening"
+        component={PastTenseOpening}
+        defaultProps={pastTenseOpeningDefaults}
         calculateMetadata={durationFromProps}
         {...common}
       />

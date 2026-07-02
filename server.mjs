@@ -1,6 +1,6 @@
 import express from 'express';
 import {bundle} from '@remotion/bundler';
-import {renderMedia, selectComposition} from '@remotion/renderer';
+import {renderMedia, renderStill, selectComposition} from '@remotion/renderer';
 import {S3Client, PutObjectCommand} from '@aws-sdk/client-s3';
 import fs from 'node:fs/promises';
 import os from 'node:os';
@@ -89,11 +89,75 @@ const renderToFile = async ({compositionId, inputProps, outputPath}) => {
   });
 };
 
+const renderStillToFile = async ({compositionId, inputProps, frame, outputPath}) => {
+  const serveUrl = await getServeUrl();
+  const composition = await selectComposition({
+    serveUrl,
+    id: compositionId,
+    inputProps,
+  });
+
+  await renderStill({
+    composition,
+    serveUrl,
+    frame,
+    inputProps,
+    output: outputPath,
+    chromiumOptions: {
+      enableMultiProcessOnLinux: true,
+      ignoreCertificateErrors: false,
+    },
+  });
+};
+
 const app = express();
 app.use(express.json({limit: '2mb'}));
 
 app.get('/health', (_req, res) => {
   res.json({status: 'ok'});
+});
+
+app.post('/still', async (req, res) => {
+  const {
+    compositionId = 'Scene1',
+    inputProps = {},
+    frame = 0,
+    outputKey,
+  } = req.body || {};
+
+  if (!outputKey) {
+    res.status(400).json({error: 'outputKey is required'});
+    return;
+  }
+
+  const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'remotion-still-'));
+  const outputPath = path.join(tmpDir, `${compositionId}-${Date.now()}.png`);
+
+  try {
+    const url = await withRenderSlot(async () => {
+      await renderStillToFile({compositionId, inputProps, frame, outputPath});
+      const body = await fs.readFile(outputPath);
+      await s3.send(
+        new PutObjectCommand({
+          Bucket: minioBucket,
+          Key: outputKey,
+          Body: body,
+          ContentType: 'image/png',
+        }),
+      );
+      return publicUrlFor(outputKey);
+    });
+
+    res.json({url});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: 'still_failed',
+      message: error instanceof Error ? error.message : String(error),
+    });
+  } finally {
+    await fs.rm(tmpDir, {recursive: true, force: true});
+  }
 });
 
 app.post('/render', async (req, res) => {
