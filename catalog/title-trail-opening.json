@@ -23,11 +23,12 @@
     "timing": { "type": "object", "note": "letter triggers locked to the MEASURED subject trajectory (playbook §5), not a linear guess" }
   },
   "palette": ["powder", "lavender", "sage", "butter", "cream", "pink", "navy", "storm"],
+  "styleLock": "The Prepare-Prompt node prepends STYLE_BLOCK_IMAGE to the start/end FRAME prompts (gpt-image-2) and STYLE_BLOCK_VIDEO to the Veo MOTION prompt (from /catalog style). You write ONLY subject + motion + scene + field — never the style itself.",
   "rules": [
+    "You write only subject/motion/scene/field; the pipeline guarantees the pastel style (image lock on frames, video lock on the Veo motion prompt).",
     "The subject need not fly/glide — pick a motion that fits the topic.",
     "Background is a CHOSEN palette field, never a fixed hardcoded image or colour.",
     "Never bake the title into the image/Veo output — text is Remotion-only.",
-    "Every image/Veo prompt begins with the STYLE BLOCK.",
     "Title reveal = per-letter in-place fade in the subject's wake, synced to measured subject X; red only on the emphasis word.",
     "Veo is expensive — reserve this treatment for the opening/hero beat."
   ]

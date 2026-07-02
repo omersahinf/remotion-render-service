@@ -121,15 +121,17 @@ app.get('/health', (_req, res) => {
 // and fills its slots; a deterministic Materialize step expands the recipe into
 // final inputProps. Recipes are versioned JSON files under catalog/.
 const catalogDir = path.join(__dirname, 'catalog');
+const stylePath = path.join(__dirname, 'style.json');
 app.get('/catalog', async (_req, res) => {
   try {
+    const style = JSON.parse(await fs.readFile(stylePath, 'utf8'));
     const files = await fs.readdir(catalogDir);
     const recipes = [];
     for (const f of files.sort()) {
       if (!f.endsWith('.json')) continue;
       recipes.push(JSON.parse(await fs.readFile(path.join(catalogDir, f), 'utf8')));
     }
-    res.json({count: recipes.length, recipes});
+    res.json({style, count: recipes.length, recipes});
   } catch (error) {
     res.status(500).json({
       error: 'catalog_failed',

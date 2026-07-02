@@ -23,16 +23,18 @@
     "panels": {
       "type": "array", "min": 2, "max": 5, "required": true,
       "item": {
-        "prompt": "gpt-image-2 prompt — MUST start with the STYLE BLOCK, subject + a CHOSEN pastel field colour (rotate between panels), aspect ~1:2 tall, edge-to-edge bg, no text",
+        "subject": "SHORT plain description of what to draw in this panel (e.g. 'three glass office skyscrapers on a gray ground') — NO style words, the pipeline adds the STYLE BLOCK",
+        "field": "a pastel field chosen from the palette (rotate between panels)",
         "startWord": "the narration word this panel lands on (for timing)"
       }
     }
   },
   "palette": ["powder", "lavender", "sage", "butter", "cream", "pink", "navy", "storm"],
+  "styleLock": "The Prepare-Prompt node prepends STYLE_BLOCK_IMAGE (from /catalog style) to every panel's `subject`, then appends the chosen field colour. You write ONLY the subject + field — never the style itself.",
   "rules": [
-    "Every panel prompt begins with the mandatory STYLE BLOCK (production-rules §1a).",
+    "You write only subject + field per panel; the pipeline guarantees the pastel style (image lock).",
     "Backdrop and each panel's field are CHOSEN from the palette; rotate panel fields; red is semantic-only.",
     "Panel startFrames map to the narration word onsets (Groq), not guesses.",
-    "Fill the screen — panels ~85% of height (production-rules §3)."
+    "Fill the screen — panels ~85% of height (production-rules §3), art aspect ~1:2 tall."
   ]
 }
