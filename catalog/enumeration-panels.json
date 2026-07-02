@@ -3,11 +3,11 @@
   "verified": true,
   "treatment": "image_remotion",
   "composition": "EnumerationPanels",
-  "description": "N pastel panels slide in one by one (alternating top/bottom) over a cream backdrop — one panel per listed item.",
+  "description": "N pastel panels slide in one by one (alternating top/bottom) over a chosen backdrop field — one panel per listed item.",
   "whenToUse": "A narrated enumeration / list beat where the narrator counts off items (2–5).",
-  "produces": "gpt-image-2 illustration per panel (tall ~1:2) -> Remotion EnumerationPanels places + slides + times.",
+  "generalize": "Panel count, the subject inside each panel, and the colours are SLOTS. The backdrop and each panel's field are CHOSEN from the palette to fit the topic — not fixed. Subjects can be anything the list is about (structures, animals, objects, foods, tools...).",
+  "produces": "one gpt-image-2 illustration per panel (tall ~1:2) -> Remotion EnumerationPanels places + slides + times.",
   "inputPropsTemplate": {
-    "backdrop": "#F7EFD9",
     "panelW": 440,
     "gap": 28,
     "panelH": 880,
@@ -19,17 +19,19 @@
     "spring": "softPop"
   },
   "slots": {
+    "backdrop": { "type": "paletteField", "required": true, "default": "cream", "note": "the field behind the whole row; choose from the palette (cream is typical for this recipe)" },
     "panels": {
       "type": "array", "min": 2, "max": 5, "required": true,
       "item": {
-        "prompt": "gpt-image-2 prompt — MUST start with the STYLE BLOCK, subject + a rotating pastel field colour, aspect ~1:2 tall, edge-to-edge bg, no text",
+        "prompt": "gpt-image-2 prompt — MUST start with the STYLE BLOCK, subject + a CHOSEN pastel field colour (rotate between panels), aspect ~1:2 tall, edge-to-edge bg, no text",
         "startWord": "the narration word this panel lands on (for timing)"
       }
     }
   },
+  "palette": ["powder", "lavender", "sage", "butter", "cream", "pink", "navy", "storm"],
   "rules": [
     "Every panel prompt begins with the mandatory STYLE BLOCK (production-rules §1a).",
-    "Rotate the pastel field per panel; red is semantic-only.",
+    "Backdrop and each panel's field are CHOSEN from the palette; rotate panel fields; red is semantic-only.",
     "Panel startFrames map to the narration word onsets (Groq), not guesses.",
     "Fill the screen — panels ~85% of height (production-rules §3)."
   ]
