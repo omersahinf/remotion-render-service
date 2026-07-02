@@ -1,0 +1,28 @@
+{
+  "name": "remotion-render-service",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "check": "tsc --noEmit",
+    "render:local": "remotion render remotion/index.ts Scene1 out/scene1.mp4"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.840.0",
+    "@remotion/bundler": "4.0.400",
+    "@remotion/cli": "4.0.400",
+    "@remotion/google-fonts": "4.0.400",
+    "@remotion/renderer": "4.0.400",
+    "express": "^4.19.2",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "remotion": "4.0.400"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.10.5",
+    "@types/react": "19.0.0",
+    "typescript": "5.7.3"
+  }
+}
