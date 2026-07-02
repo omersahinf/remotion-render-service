@@ -83,6 +83,7 @@ const renderToFile = async ({compositionId, inputProps, outputPath}) => {
     outputLocation: outputPath,
     pixelFormat: 'yuv420p',
     chromiumOptions: {
+      enableMultiProcessOnLinux: true,
       ignoreCertificateErrors: false,
     },
   });
