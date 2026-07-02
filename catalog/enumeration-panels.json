@@ -1,0 +1,36 @@
+{
+  "recipeId": "enumeration-panels",
+  "verified": true,
+  "treatment": "image_remotion",
+  "composition": "EnumerationPanels",
+  "description": "N pastel panels slide in one by one (alternating top/bottom) over a cream backdrop — one panel per listed item.",
+  "whenToUse": "A narrated enumeration / list beat where the narrator counts off items (2–5).",
+  "produces": "gpt-image-2 illustration per panel (tall ~1:2) -> Remotion EnumerationPanels places + slides + times.",
+  "inputPropsTemplate": {
+    "backdrop": "#F7EFD9",
+    "panelW": 440,
+    "gap": 28,
+    "panelH": 880,
+    "borderRadius": 40,
+    "border": "4px solid #211E1A",
+    "boxShadow": "4px 4px 0 rgba(0,0,0,0.1)",
+    "objectFit": "cover",
+    "entry": "alternateTopBottom",
+    "spring": "softPop"
+  },
+  "slots": {
+    "panels": {
+      "type": "array", "min": 2, "max": 5, "required": true,
+      "item": {
+        "prompt": "gpt-image-2 prompt — MUST start with the STYLE BLOCK, subject + a rotating pastel field colour, aspect ~1:2 tall, edge-to-edge bg, no text",
+        "startWord": "the narration word this panel lands on (for timing)"
+      }
+    }
+  },
+  "rules": [
+    "Every panel prompt begins with the mandatory STYLE BLOCK (production-rules §1a).",
+    "Rotate the pastel field per panel; red is semantic-only.",
+    "Panel startFrames map to the narration word onsets (Groq), not guesses.",
+    "Fill the screen — panels ~85% of height (production-rules §3)."
+  ]
+}

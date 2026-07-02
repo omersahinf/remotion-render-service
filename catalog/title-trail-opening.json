@@ -1,0 +1,33 @@
+{
+  "recipeId": "title-trail-opening",
+  "verified": true,
+  "treatment": "veo",
+  "composition": "HeroVeoTitle",
+  "description": "A subject glides across a parallax pastel scene while the hook title reveals letter-by-letter, in-place (faint->pop), synced to the subject's motion. Emphasis word is red.",
+  "whenToUse": "The opening hook of the video (one per video).",
+  "produces": "gpt-image-2 start/end frames (subject left->right over a wide parallax skyline) -> Veo 3.1 Lite plate (6s) -> Remotion HeroVeoTitle overlay for the title.",
+  "pipeline": [
+    "gpt-image-2: wide skyline + START frame (subject left) + END frame (skyline scrolled, subject right)",
+    "Veo 3.1 Lite: durationSeconds=6, 1080p/16:9, start+end, generateAudio=false, camera pans (parallax)",
+    "Remotion HeroVeoTitle: video as background, title reveals per-letter in-place synced to subject"
+  ],
+  "inputPropsTemplate": {
+    "letterFadeFrames": 4,
+    "revealSpeed": 1.25,
+    "line2FadeFrames": 9,
+    "trailOffsetPx": 10
+  },
+  "slots": {
+    "subject": { "type": "string", "required": true, "note": "e.g. small pastel sparrow" },
+    "sceneDescription": { "type": "string", "required": true, "note": "the parallax scene, e.g. pastel city skyline" },
+    "line1": { "type": "string", "required": true, "note": "white title line, no baked text in the image/Veo" },
+    "line2Emphasis": { "type": "string", "required": false, "note": "red danger/emphasis line" },
+    "timing": { "type": "object", "note": "letter triggers locked to the MEASURED subject trajectory (playbook §5), NOT a linear guess" }
+  },
+  "rules": [
+    "Never bake the title into the gpt-image-2 or Veo output — text is Remotion-only.",
+    "Every image/Veo prompt begins with the STYLE BLOCK (production-rules §1a).",
+    "Title reveal = per-letter in-place fade synced to measured subject X; red only on the emphasis word.",
+    "Veo is expensive — reserve this treatment for the opening/hero beat."
+  ]
+}
