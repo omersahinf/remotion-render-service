@@ -21,7 +21,7 @@ export type Scene1Props = {
 };
 
 export const scene1Defaults: Scene1Props = {
-  bgUrl: 'https://minio-api.n8n-omersahin.cfd/vector-style/remotion-smoke/scene1/skyline_background.png',
+  bgUrl: 'https://dummyimage.com/1920x1080/fff/aaa',
   birdPoseUrls: [
     'https://minio-api.n8n-omersahin.cfd/vector-style/remotion-smoke/scene1/bird_wingsup_alpha.png',
     'https://minio-api.n8n-omersahin.cfd/vector-style/remotion-smoke/scene1/bird_level_alpha.png',

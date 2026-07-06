@@ -1,9 +1,7 @@
 import React from 'react';
 import { Img, interpolate, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
 import { SceneBackground } from '../components/SceneBackground';
-import { OutlinedText } from '../components/OutlinedText';
-import { PopIn } from '../components/PopIn';
-import { RadiatingTicks } from '../components/RadiatingTicks';
+import { FaintResolveText } from '../components/FaintResolveText';
 import { CANVAS } from '../theme/tokens';
 import { SEMANTIC } from '../theme/palette';
 import type { SceneBaseProps } from '../theme/types';
@@ -18,11 +16,10 @@ export type HeroTitleTraverseProps = SceneBaseProps & {
   baseY?: number;
   bobAmplitude?: number;
   bobHz?: number;
-  cycleFps?: number;
   parallax?: boolean;
   titleWords: TitleWord[];
   titleStartFrame: number;
-  wordStaggerFrames?: number;
+  lineStaggerFrames?: number;
   fontSize?: number;
 };
 
@@ -32,22 +29,19 @@ export const heroTitleTraverseDefaults: HeroTitleTraverseProps = {
   bgImageUrl: staticFile('assets/skyline_bg.png'),
   poseUrls: [
     staticFile('assets/bird_pose_1.png'),
-    staticFile('assets/bird_pose_2.png'),
-    staticFile('assets/bird_pose_3.png'),
   ],
   direction: 'ltr',
-  subjectSize: 300,
+  subjectSize: 210,
   baseY: 520,
   bobAmplitude: 22,
   bobHz: 4.2,
-  cycleFps: 8,
   parallax: true,
   titleWords: [
     { text: '1 Billion Birds' },
     { text: 'DIE', emphasis: true },
   ],
   titleStartFrame: 30,
-  wordStaggerFrames: 12,
+  lineStaggerFrames: 26,
   fontSize: 130,
 };
 
@@ -56,28 +50,27 @@ export const HeroTitleTraverse: React.FC<HeroTitleTraverseProps> = ({
   bgImageUrl,
   poseUrls,
   direction = 'ltr',
-  subjectSize = 300,
+  subjectSize = 210,
   baseY = 520,
   bobAmplitude = 22,
   bobHz = 4.2,
-  cycleFps = 8,
   parallax = true,
   titleWords,
   titleStartFrame,
-  wordStaggerFrames = 12,
+  lineStaggerFrames = 26,
   fontSize = 130,
 }) => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames } = useVideoConfig();
 
-  const poses = poseUrls.length > 0 ? poseUrls : [''];
-  const poseIndex = Math.floor((frame * cycleFps) / fps) % poses.length;
+  const birdUrl = poseUrls[0] ?? '';
 
   const t = frame / Math.max(1, durationInFrames);
   const fromX = direction === 'ltr' ? -subjectSize : CANVAS.width;
   const toX = direction === 'ltr' ? CANVAS.width : -subjectSize;
   const x = interpolate(t, [0, 1], [fromX, toX]);
   const y = baseY + bobAmplitude * Math.sin((frame / fps) * bobHz);
+  const tilt = 3 * Math.sin((frame / fps) * bobHz * 0.5);
 
   const bgW = CANVAS.width * 1.18;
   const panRange = bgW - CANVAS.width;
@@ -101,51 +94,42 @@ export const HeroTitleTraverse: React.FC<HeroTitleTraverseProps> = ({
         />
       ) : null}
 
-      {/* Başlık: kelime-kelime additive pop-in; kırmızı vurgu kelimesi en son + ticks */}
+      {/* Başlık: 2 satır, soluk-çözülür; DIE kırmızı altında ortalı; burst/tick YOK */}
       <div
         style={{
           position: 'absolute',
           width: '100%',
-          top: CANVAS.height * 0.22,
+          top: CANVAS.height * 0.16,
           display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'flex-start',
-          gap: 28,
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 6,
           zIndex: 10,
         }}
       >
-        {titleWords.map((word, i) => {
-          const startFrame = titleStartFrame + i * wordStaggerFrames;
-          return (
-            <div key={i} style={{ position: 'relative' }}>
-              <PopIn startFrame={startFrame} from={0.7}>
-                <OutlinedText
-                  fontSize={fontSize}
-                  fill={word.emphasis ? SEMANTIC.danger : '#FFFFFF'}
-                >
-                  {word.text}
-                </OutlinedText>
-              </PopIn>
-              {word.emphasis ? (
-                <div style={{ position: 'absolute', left: '50%', top: '50%' }}>
-                  <RadiatingTicks startFrame={startFrame} radius={110} />
-                </div>
-              ) : null}
-            </div>
-          );
-        })}
+        {titleWords.map((word, i) => (
+          <FaintResolveText
+            key={i}
+            startFrame={titleStartFrame + i * lineStaggerFrames}
+            settleFrames={22}
+            fontSize={word.emphasis ? Math.round(fontSize * 1.08) : fontSize}
+            fill={word.emphasis ? SEMANTIC.danger : '#FFFFFF'}
+          >
+            {word.text}
+          </FaintResolveText>
+        ))}
       </div>
 
-      {poses[poseIndex] ? (
+      {birdUrl ? (
         <Img
-          src={poses[poseIndex]}
+          src={birdUrl}
           style={{
             position: 'absolute',
             width: subjectSize,
             left: x,
             top: y,
-            transform: direction === 'rtl' ? 'scaleX(-1)' : undefined,
+            transform: `${direction === 'rtl' ? 'scaleX(-1) ' : ''}rotate(${tilt}deg)`,
+            transformOrigin: 'center',
             zIndex: 20,
           }}
         />

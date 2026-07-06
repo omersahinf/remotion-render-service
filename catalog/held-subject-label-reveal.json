@@ -1,0 +1,40 @@
+{
+  "recipeId": "held-subject-label-reveal",
+  "verified": true,
+  "treatment": "image_composite",
+  "composition": "SceneComposite",
+  "description": "A subject is held static on one side of a flat field; one or more elements (an icon and/or a word) appear in the empty side, one after another, timed to the narration.",
+  "whenToUse": "A reveal / labelling / 'X + attribute' beat: tag a held subject with a term, icon or number as it is spoken (e.g. a person + a green cross + the word 'Albinism').",
+  "generalize": "Everything is a SLOT: the subject (any person/animal/object), which side holds it, the field (chosen/rotated), and the ordered elements (icon or word). The concrete build is one example, not the definition.",
+  "produces": "gpt-image-2 PLATE (subject on {subjectSide} third, rest empty flat {field}, no text) as bgUrl; each element = its own gpt-image-2 asset -> icon via rembg, word via magenta color-key -> placed as a timed overlay that hard-appears at its startWord.",
+  "inputPropsTemplate": {
+    "vibrance": { "saturate": 1.32, "contrast": 1.1 },
+    "grain": true
+  },
+  "slots": {
+    "field": { "type": "paletteField", "required": true, "note": "flat field for the plate; choose from palette, rotate vs prevField" },
+    "subjectSide": { "type": "enum", "values": ["left", "right"], "default": "left" },
+    "subject": { "type": "shortText", "required": true, "note": "SHORT plain description of the held subject (no style words); pipeline adds STYLE_BLOCK_IMAGE" },
+    "elements": {
+      "type": "array", "min": 1, "max": 4, "required": true,
+      "item": {
+        "kind": { "type": "enum", "values": ["icon", "word"], "required": true },
+        "content": "for icon: SHORT plain description of the illustrated element; for word: the exact text string",
+        "voice": "for word only: a voice from text-styles (title-bold | label-handwritten)",
+        "startWord": "the narration word this element appears on (timing)",
+        "xFrac": "center X 0..1 in the empty area (reading order left->right)",
+        "yFrac": "center Y 0..1 (default ~0.52)",
+        "wFrac": "width as fraction of canvas (default ~0.12 icon, ~0.22 word)"
+      }
+    }
+  },
+  "palette": ["powder", "lavender", "sage", "butter", "cream", "pink", "navy", "storm", "teal", "desert"],
+  "styleLock": "Prepare-Prompt prepends STYLE_BLOCK_IMAGE to the subject + each icon; words are gpt-image-2 lettering (never a font). You write only subject/content/field/voice.",
+  "rules": [
+    "No entrance animation — elements HARD-APPEAR at their startWord (channel style).",
+    "Text is gpt-image-2 art in a chosen voice (text-styles.md), never a compositor font.",
+    "Field chosen from palette, rotate vs prevField; red is semantic-only.",
+    "Vibrance pass applied so output isn't washed-out.",
+    "Compose the plate with the empty side reserved for the elements."
+  ]
+}

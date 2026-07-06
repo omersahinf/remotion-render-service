@@ -14,9 +14,11 @@ import {SplitCompare, splitCompareDefaults} from './scenes/SplitCompare';
 import {Markup, markupDefaults} from './scenes/Markup';
 
 import {HeroTitleTraverse, heroTitleTraverseDefaults} from './scenes/HeroTitleTraverse';
+import {HeroVeoTitle, heroVeoTitleDefaults} from './scenes/HeroVeoTitle';
 import {EnumerationPanels, enumerationPanelsDefaults} from './scenes/EnumerationPanels';
 import {ImpactNumber, impactNumberDefaults} from './scenes/ImpactNumber';
 import {PastTenseOpening, pastTenseOpeningDefaults} from './scenes/PastTenseOpening';
+import {SceneComposite, sceneCompositeDefaults} from './scenes/SceneComposite';
 
 // Every scene reads its length from inputProps.durationInFrames (the Groq beat
 // length), so the n8n side controls duration without re-registering.
@@ -121,6 +123,13 @@ export const RemotionRoot: React.FC = () => {
         {...common}
       />
       <Composition
+        id="HeroVeoTitle"
+        component={HeroVeoTitle}
+        defaultProps={heroVeoTitleDefaults}
+        calculateMetadata={durationFromProps}
+        {...common}
+      />
+      <Composition
         id="EnumerationPanels"
         component={EnumerationPanels}
         defaultProps={enumerationPanelsDefaults}
@@ -138,6 +147,13 @@ export const RemotionRoot: React.FC = () => {
         id="PastTenseOpening"
         component={PastTenseOpening}
         defaultProps={pastTenseOpeningDefaults}
+        calculateMetadata={durationFromProps}
+        {...common}
+      />
+      <Composition
+        id="SceneComposite"
+        component={SceneComposite}
+        defaultProps={sceneCompositeDefaults}
         calculateMetadata={durationFromProps}
         {...common}
       />

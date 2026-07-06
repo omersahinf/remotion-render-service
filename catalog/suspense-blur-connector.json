@@ -1,0 +1,30 @@
+{
+  "recipeId": "suspense-blur-connector",
+  "verified": true,
+  "treatment": "image_composite",
+  "composition": "SceneComposite",
+  "description": "At a narrative pivot, hold the current scene, blur it (full-frame gaussian), and bring a short connector phrase over it; hold a beat, then the next beat hard-cuts to the reveal.",
+  "whenToUse": "A cliffhanger / pivot connector: 'and then...', 'after that...', 'but then...', 'suddenly...', 'until...'. The script pauses on the suspense word before the turn.",
+  "generalize": "Which scene is blurred (reuse the CURRENT beat's art, draw nothing new), the connector phrase, the blur amount, and the hold length are SLOTS.",
+  "produces": "reuse the current scene image as bgUrl; the connector phrase = a gpt-image-2 label (label-handwritten voice, dark ink) via magenta color-key -> centered sharp overlay; SceneComposite applies a full-frame gaussian blur to the bg and hard-appears the text.",
+  "inputPropsTemplate": {
+    "blur": { "radius": 16, "startFrame": 12 },
+    "vibrance": { "saturate": 1.32, "contrast": 1.1 },
+    "grain": true
+  },
+  "slots": {
+    "field": { "type": "paletteField", "required": false, "note": "carried from the current scene (usually unchanged)" },
+    "sceneRef": { "type": "assetUrl", "required": true, "note": "the current scene image to blur (reuse the prior beat's bg; do NOT draw a new one)" },
+    "connector": { "type": "shortText", "required": true, "note": "the exact phrase, e.g. 'and then....'" },
+    "blurRadius": { "type": "number", "default": 16 },
+    "blurStartFrame": { "type": "number", "default": 12, "note": "sharp for a moment, then blurs in" }
+  },
+  "palette": ["powder", "lavender", "sage", "butter", "cream", "pink", "navy", "storm", "teal", "desert"],
+  "styleLock": "The connector phrase is gpt-image-2 lettering (label-handwritten voice), never a font. No new illustration is generated — the scene is the prior beat's image.",
+  "rules": [
+    "Reuse the CURRENT scene art; draw nothing new.",
+    "Text stays sharp on top of the blurred background; it hard-appears (no scale animation).",
+    "Land the blur + text on the spoken connector; hold, then the next beat hard-cuts to the reveal.",
+    "Use only for genuine pivot/cliffhanger connectors."
+  ]
+}

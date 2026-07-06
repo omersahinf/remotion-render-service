@@ -12,10 +12,13 @@ export const BACKGROUND_FIELDS = {
   sage: '#C2CFA5', // animal facts, mirror test, polluted water
   lavender: '#D2C6EA', // research/lab, anatomy, mascot scenes
   butter: '#F6E9C6', // icon rosters, candidate map, diagrams
+  cream: '#F7EFD9', // panel/diagram backdrop
   powder: '#BCD0E8', // daytime sky, city scenes
   pink: '#EFC9CD', // reproduction/soft topics
   navy: '#1D2F52', // night rooftop scenes
   storm: '#8E8E8C', // rain/London scenes (whole scene darkens)
+  teal: '#C5E1D9', // tropical water, islands, ocean
+  desert: '#EED9A8', // warm arid/outback (orange ground painted into the art)
 } as const;
 
 export type BackgroundFieldKey = keyof typeof BACKGROUND_FIELDS;

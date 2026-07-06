@@ -1,0 +1,25 @@
+{
+  "recipeId": "still",
+  "verified": true,
+  "treatment": "image_composite",
+  "composition": "SceneComposite",
+  "description": "One full pastel illustration of the narrated moment, held under the narration. No structure or reveal.",
+  "whenToUse": "When a beat just needs one image held (an establishing shot, a mood beat, a single iconic moment) with no on-screen text or timed elements.",
+  "generalize": "The subject/scene and the field are SLOTS. Optional slow motion (Ken-Burns) can be added later; default is a static hold.",
+  "produces": "one gpt-image-2 illustration of the scene as bgUrl; SceneComposite holds it with the vibrance pass.",
+  "inputPropsTemplate": {
+    "vibrance": { "saturate": 1.32, "contrast": 1.1 },
+    "grain": true
+  },
+  "slots": {
+    "field": { "type": "paletteField", "required": true, "note": "flat field; choose/rotate" },
+    "scene": { "type": "shortText", "required": true, "note": "SHORT plain description of the full illustration; no style words" }
+  },
+  "palette": ["powder", "lavender", "sage", "butter", "cream", "pink", "navy", "storm", "teal", "desert"],
+  "styleLock": "STYLE_BLOCK_IMAGE prepended to the scene; no text.",
+  "rules": [
+    "One idea per frame; fill the screen; nothing critical in the lower ~12%.",
+    "Field chosen from palette, rotate vs prevField.",
+    "Vibrance pass applied so output isn't washed-out."
+  ]
+}

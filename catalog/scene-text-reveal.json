@@ -1,0 +1,39 @@
+{
+  "recipeId": "scene-text-reveal",
+  "verified": true,
+  "treatment": "image_composite",
+  "composition": "SceneComposite",
+  "description": "Illustrate the thing the narration is about as one held full scene; bring on-screen text on top per the script — baked into the scene if static from the start, or appearing (as a cut-out overlay) when the narration introduces it.",
+  "whenToUse": "A captioned scene / stat reveal: draw the narrated subject (a place, group, object, diagram) and caption it (a number, a label, a term) when it is spoken. Repeat + hard-cut for a list of items.",
+  "generalize": "The scene, the field, the text content, whether the text is BAKED or APPEARS, and the text voice are all SLOTS from the script. One instance (e.g. an isolated people + a handwritten population stat) is an example.",
+  "produces": "gpt-image-2 SCENE (subject + environment, top/space left empty) as bgUrl; BAKED text is written into the scene prompt (surfaces locked); APPEARING text = its own gpt-image-2 asset (voice) via magenta color-key -> timed overlay hard-appearing at its startWord.",
+  "inputPropsTemplate": {
+    "vibrance": { "saturate": 1.32, "contrast": 1.1 },
+    "grain": true
+  },
+  "slots": {
+    "field": { "type": "paletteField", "required": true, "note": "flat field; choose/rotate" },
+    "scene": { "type": "shortText", "required": true, "note": "SHORT plain description of the held scene (subject + environment + optional map/motif), with the caption area left empty; no style words" },
+    "text": {
+      "type": "array", "min": 0, "max": 3,
+      "item": {
+        "string": "exact text",
+        "voice": "a voice from text-styles (title-bold | label-handwritten | in-world)",
+        "mode": { "type": "enum", "values": ["baked", "appears"], "note": "baked = present from frame 0 (written into the scene image); appears = cut-out overlay hard-appearing at startWord" },
+        "startWord": "for mode=appears: the narration word it lands on",
+        "xFrac": "for mode=appears: center X (default 0.5)",
+        "yFrac": "for mode=appears: center Y (default ~0.12 for a top caption)",
+        "wFrac": "for mode=appears: width fraction (default ~0.5)"
+      }
+    }
+  },
+  "palette": ["powder", "lavender", "sage", "butter", "cream", "pink", "navy", "storm", "teal", "desert"],
+  "styleLock": "STYLE_BLOCK_IMAGE prepended to the scene; appearing text is gpt-image-2 lettering (never a font). Baked text: put the exact string in the scene prompt and lock all other surfaces ('no other text/letters').",
+  "rules": [
+    "Baked vs appears is decided by the SCRIPT timing (§4a): spoken mid-beat -> appears at that word; present from the start -> baked.",
+    "Appearing text HARD-APPEARS (no entrance animation).",
+    "Text is gpt-image-2 art in a chosen voice; never a compositor font.",
+    "For a list: repeat this recipe per item, hard-cut on a palette change (rotate field).",
+    "Vibrance pass applied; keep people the channel's white-bodied figures."
+  ]
+}

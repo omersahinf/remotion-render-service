@@ -1,9 +1,12 @@
 {
   "_note": "Single source of truth for the Past Tense pastel style-lock. The n8n Prepare-Prompt node prepends STYLE_BLOCK_IMAGE to every gpt-image-2 prompt and STYLE_BLOCK_VIDEO to every Veo motion prompt. The Scene Composer writes ONLY the subject + chosen field; it does NOT write the style itself.",
 
-  "STYLE_BLOCK_IMAGE": "Flat 2D hand-drawn children's-storybook illustration, simple doodle / educational-cartoon style. Draw with a thin-to-medium, slightly WOBBLY hand-drawn warm-charcoal outline (#211E1A) of even, confident weight, plus light sketchy interior detail lines and only sparse hatching. Use COMPLETELY FLAT color fills in a soft MUTED PASTEL palette — absolutely NO gradients, NO shading, NO highlights, NO cel-shading, NO 3D, NO glossy or metallic effects, NO texture, NO photorealism. Keep it clean, friendly, calm and minimal with generous negative space and one clear subject. Fill the ENTIRE frame edge-to-edge with a single flat pastel background color. No text, no letters, no numbers, no watermark, no border or frame.",
+  "STYLE_BLOCK_IMAGE": "Flat 2D hand-drawn cartoon illustration, like a simple educational explainer video frame. Visibly hand-drawn with slightly WOBBLY, imperfect dark charcoal ink outlines (#211E1A) of subtly uneven weight, as if drawn by hand with a felt-tip pen — NOT clean smooth vector lines. COMPLETELY FLAT matte color fills: NO gradients, NO shading, NO highlights, NO cel-shading, NO 3D, NO glossy or metallic effects, NO texture, NO photorealism. Soft pastel palette but with clean, warm, cheerful, VIVID colors — never washed-out, greyish or desaturated. Generous negative space, one clear subject. Fill the ENTIRE frame edge-to-edge with the flat background color. No text, no letters, no numbers, no watermark, no border or frame.",
 
-  "STYLE_BLOCK_VIDEO": "Flat 2D hand-drawn children's-storybook ANIMATION, simple doodle / educational-cartoon style. Everything drawn with thin-to-medium, slightly wobbly warm-charcoal outlines (#211E1A) and COMPLETELY FLAT muted-pastel fills — NO gradients, NO shading, NO highlights, NO 3D, NO realism, NO photographic textures, NO glossy or metallic look. The image stays flat and hand-drawn at ALL times and must never morph into 3D, realistic, or photographic rendering. Motion is smooth, gentle and continuous, calm and minimal. No text, no letters, no captions anywhere.",
+  "STYLE_BLOCK_VIDEO": "Flat 2D hand-drawn explainer ANIMATION. Everything drawn with visibly wobbly, imperfect warm-charcoal ink outlines (#211E1A) and COMPLETELY FLAT matte fills in a clean, vivid (not washed-out) soft pastel palette — NO gradients, NO shading, NO highlights, NO 3D, NO realism, NO photographic textures, NO glossy or metallic look. The image stays flat and hand-drawn at ALL times and must never morph into 3D, realistic, or photographic rendering. Motion is smooth, gentle and continuous. No text, no letters, no captions anywhere.",
+
+  "styleVersion": "v2 (approved 2026-07-06)",
+  "vibranceNote": "Raw gpt-image-2 reads slightly washed-out; the SceneComposite render applies a mandatory vibrance pass (saturate ~1.32, contrast ~1.1) so output matches the reference channel.",
 
   "ink": "#211E1A",
   "semanticRed": "#DA382F",
@@ -15,9 +18,11 @@
     "cream": "#F7EFD9",
     "pink": "#EFC9CD",
     "navy": "#1D2F52",
-    "storm": "#8E8E8C"
+    "storm": "#8E8E8C",
+    "teal": "#C5E1D9",
+    "desert": "#EED9A8"
   },
-  "paletteNote": "Backgrounds/fields are CHOSEN from this palette per topic and rotated between scenes; never hard-coded. Red (#DA382F) is semantic-only (danger/emphasis), never a background.",
+  "paletteNote": "Backgrounds/fields are CHOSEN from this palette per topic and rotated between scenes; never hard-coded. teal = tropical water/islands; desert = warm arid/outback (the orange ground is painted into the illustration). Red (#DA382F) is semantic-only (danger/emphasis), never a background.",
 
   "veo": {
     "model": "veo-3.1-fast-generate-001",

@@ -23,10 +23,10 @@ export const pastTenseOpeningDefaults: PastTenseOpeningProps = {
   panelsProps: {
     ...enumerationPanelsDefaults,
     panels: [
-      { illustrationUrl: staticFile('assets/panel_buildings.png'), bgField: 'powder', startFrame: 10 },
-      { illustrationUrl: staticFile('assets/panel_tower.png'), bgField: 'lavender', startFrame: 40 },
-      { illustrationUrl: staticFile('assets/panel_windmill.png'), bgField: 'mint', startFrame: 70 },
-      { illustrationUrl: staticFile('assets/panel_pylon.png'), bgField: 'sun', startFrame: 100 },
+      { illustrationUrl: staticFile('assets/panel_buildings.png'), startFrame: 10 },
+      { illustrationUrl: staticFile('assets/panel_tower.png'), startFrame: 40 },
+      { illustrationUrl: staticFile('assets/panel_windmill.png'), startFrame: 70 },
+      { illustrationUrl: staticFile('assets/panel_pylon.png'), startFrame: 100 },
     ],
   },
   impactProps: {
