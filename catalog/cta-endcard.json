@@ -1,0 +1,19 @@
+{
+  "recipeId": "cta-endcard",
+  "verified": true,
+  "treatment": "image_composite",
+  "composition": "SceneComposite",
+  "description": "The end-card call-to-action: a doodle like / subscribe / play button cluster on a flat field, elements popping with radiating ticks. The ONLY place saturated brand colours (YouTube red, like blue, star yellow) are allowed.",
+  "whenToUse": "The closing CTA beat ('keep on swimming', 'subscribe', outro).",
+  "generalize": "The CTA elements and the field are SLOTS; the brand colours are the one sanctioned exception to the palette.",
+  "produces": "gpt-image-2 doodle CTA (like/subscribe/play, brand colours) as bgUrl or overlays; optional closing word (title-bold) overlay.",
+  "inputPropsTemplate": { "vibrance": { "saturate": 1.15, "contrast": 1.05 }, "grain": true },
+  "slots": {
+    "field": { "type": "paletteField", "required": true },
+    "elements": { "type": "array", "note": "which CTA doodles: like, subscribe, play, bell, stars" },
+    "closingWord": { "type": "shortText", "note": "optional closing phrase (title-bold)" }
+  },
+  "palette": ["powder","lavender","sage","butter","cream","pink","navy","storm","teal","desert"],
+  "styleLock": "CTA doodles are gpt-image-2 art; the closing word is gpt-image-2 lettering. Brand colours (YouTube red/like blue/star yellow) allowed ONLY here.",
+  "rules": ["Only place saturated brand colours are allowed.","Reserve for the outro/CTA beat only.","Elements can pop with radiating ticks (channel style)."]
+}
