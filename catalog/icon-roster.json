@@ -1,0 +1,11 @@
+{
+  "recipeId": "icon-roster", "verified": true, "treatment": "image_remotion", "composition": "IconBuild",
+  "description": "N circular icon badges (or labelled figures) pop in one by one on a ring/grid — the 'evidence/candidate' currency, or a roster of examples.",
+  "whenToUse": "A roster/set beat where several items or examples are shown building up (5 largest groups, a set of traits, candidate icons).",
+  "generalize": "The badge subjects + labels + count are SLOTS; the ring/grid layout + pop-in are fixed. Each badge REQUIRES its own image.",
+  "produces": "one gpt-image-2 icon per badge -> rembg -> IconBuild pops them in with labels.",
+  "slots": { "field": {"type":"paletteField","required":true}, "badges": {"type":"array","min":2,"max":6,"item":{"subject":"SHORT icon subject","label":"short label (gpt-image-2 lettering)","startWord":"when it pops in"}} },
+  "palette": ["powder","lavender","sage","butter","cream","pink","navy","storm","teal","desert"],
+  "styleLock": "Badges are gpt-image-2 icons (required assets — never substitute); labels are gpt-image-2 lettering.",
+  "rules": ["Every badge MUST have its own image (fail loudly if missing).","Badges pop in on their startWord."]
+}

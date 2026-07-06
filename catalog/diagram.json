@@ -1,0 +1,19 @@
+{
+  "recipeId": "diagram",
+  "verified": true,
+  "treatment": "image_composite",
+  "composition": "SceneComposite",
+  "description": "A hand-drawn diagram of a mechanism/anatomy/process (DNA, eye cross-section, brain hemispheres, gene->melanin arrows) with handwritten labels. Labels are usually baked into the diagram image; extra labels can appear on the spoken word.",
+  "whenToUse": "A how-something-works / anatomy / cause->effect beat (melanin, cones, lateralization, inheritance).",
+  "generalize": "The diagram subject, its labels, and the field are SLOTS. Red marks the defect/mutation. Arrows show progression.",
+  "produces": "gpt-image-2 diagram (with baked handwritten labels, surfaces locked) as bgUrl; any APPEARING label = gpt-image-2 lettering (label-handwritten) overlay.",
+  "inputPropsTemplate": { "vibrance": { "saturate": 1.32, "contrast": 1.1 }, "grain": true },
+  "slots": {
+    "field": { "type": "paletteField", "required": true },
+    "diagram": { "type": "shortText", "required": true, "note": "SHORT description of the diagram + its exact baked labels in quotes; red marks defect; arrows show flow" },
+    "appearingLabels": { "type": "array", "max": 3, "item": { "string": "exact text", "startWord": "when it appears" } }
+  },
+  "palette": ["powder","lavender","sage","butter","cream","pink","navy","storm","teal","desert"],
+  "styleLock": "Diagram + baked labels = one gpt-image-2 image (lock all other surfaces). Appearing labels = gpt-image-2 lettering (label-handwritten voice).",
+  "rules": ["Handwritten diagram labels usually BAKED into the image.","Red marks the defect/mutation; arrows show A->B->C.","Extend a prior diagram to show 'one more' (reuse + add)."]
+}

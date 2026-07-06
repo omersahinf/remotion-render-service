@@ -1,0 +1,11 @@
+{
+  "recipeId": "gauge", "verified": true, "treatment": "image_remotion", "composition": "Gauge",
+  "description": "A hand-drawn gauge/bar that fills or drains (green->red), with a marker.",
+  "whenToUse": "A level/quantity that rises or falls over the beat (oxygen level, stress, food supply).",
+  "generalize": "The gauge label, direction (fill/drain), and colours are SLOTS.",
+  "produces": "Gauge composition draws the dial/bar + animates the fill; label = gpt-image-2 lettering.",
+  "slots": { "field": {"type":"paletteField","required":true}, "label": {"type":"shortText"}, "direction": {"type":"enum","values":["fill","drain"]}, "from": {"type":"number"}, "to": {"type":"number"} },
+  "palette": ["powder","lavender","sage","butter","cream","pink","navy","storm","teal","desert"],
+  "styleLock": "Gauge structure is drawn in the house style; label = gpt-image-2 lettering.",
+  "rules": ["Green->red semantics for good->bad.","Animate the fill/drain over the beat."]
+}

@@ -1,0 +1,11 @@
+{
+  "recipeId": "traverse", "verified": true, "treatment": "image_remotion", "composition": "Traverse",
+  "description": "A cutout subject (creature/person/object) moves across a held background on a path.",
+  "whenToUse": "A subject crossing a scene without a title (a creature moving, a walk-through) when NOT the opening hook.",
+  "generalize": "The subject, its motion (glide/walk/drive/swim), the background, and the field are SLOTS.",
+  "produces": "gpt-image-2 background + gpt-image-2 subject pose(s) -> rembg -> Traverse moves the cutout across.",
+  "slots": { "field": {"type":"paletteField","required":true}, "background": {"type":"shortText","required":true}, "subject": {"type":"shortText","required":true,"note":"the moving subject + how it moves"} },
+  "palette": ["powder","lavender","sage","butter","cream","pink","navy","storm","teal","desert"],
+  "styleLock": "Background + subject are gpt-image-2 art; motion is the compositor's.",
+  "rules": ["Subject moves; camera/background can parallax.","Use title-trail-opening instead for the opening hook."]
+}

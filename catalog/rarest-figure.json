@@ -1,0 +1,25 @@
+{
+  "recipeId": "rarest-figure",
+  "verified": true,
+  "treatment": "image_composite",
+  "composition": "SceneComposite",
+  "description": "The recurring through-line motif: a single glowing outlined figure alone on a field, optionally carrying accumulated trait badges/icons and a label. Recurs every time the narration returns to 'the rarest person so far', accumulating traits; its negation shows a red 'Not'.",
+  "whenToUse": "Any beat that returns to the person being built ('our rarest human...', 'this person', 'now we give them X'). Use consistently as the spine; keep the figure identical across the video (reuse via carry-over subjectRef).",
+  "generalize": "The figure is the SAME reused asset (carry-over subjectRef). Slots: the label text, any trait badges to show, whether a red 'Not' negation is present, the field.",
+  "produces": "reuse the glowing-figure asset as bgUrl (or gpt-image-2 once, then /v1/images/edits to keep it identical); label + any trait badges = gpt-image-2 overlays (word via color-key, badge via rembg) hard-appearing.",
+  "inputPropsTemplate": { "vibrance": { "saturate": 1.32, "contrast": 1.1 }, "grain": true },
+  "slots": {
+    "field": { "type": "paletteField", "required": true },
+    "label": { "type": "shortText", "note": "usually 'Rarest Human' (title-bold); or a red 'Not' + 'Rarest Human' for the negation" },
+    "negation": { "type": "boolean", "default": false, "note": "true = a red 'Not' struck over the label (motif overturned)" },
+    "badges": { "type": "array", "max": 6, "item": { "content": "trait icon to show on/around the figure", "startWord": "when it appears" } }
+  },
+  "palette": ["powder","lavender","sage","butter","cream","pink","navy","storm","teal","desert"],
+  "styleLock": "The figure + badges are gpt-image-2 art; the label/'Not' are gpt-image-2 lettering (title-bold, red for 'Not'). Reuse the identical figure across the video via carry-over.",
+  "rules": [
+    "Keep the figure IDENTICAL every time (carry-over subjectRef via /v1/images/edits).",
+    "Accumulate trait badges as the video adds traits (carry-over motif.traits).",
+    "'Not' negation uses semantic red; hard-appear, no animation.",
+    "This is the branding anchor — use it as the recurring spine."
+  ]
+}

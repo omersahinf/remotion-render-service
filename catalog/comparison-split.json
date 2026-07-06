@@ -1,0 +1,11 @@
+{
+  "recipeId": "comparison-split", "verified": true, "treatment": "image_remotion", "composition": "SplitCompare",
+  "description": "Two sides compared across a hand-drawn wavy divider (before/after, X vs Y, big group vs tiny group).",
+  "whenToUse": "A comparison / two-ends-of-a-scale beat (forest vs construction, normal vs mutated, most vs fewest).",
+  "generalize": "The two subjects and the field are SLOTS; the divider + wipe are fixed.",
+  "produces": "two gpt-image-2 illustrations (left/right) -> rembg -> SplitCompare places them with a wavy divider.",
+  "slots": { "field": {"type":"paletteField","required":true}, "left": {"type":"shortText","required":true,"note":"left/before subject"}, "right": {"type":"shortText","required":true,"note":"right/after subject"} },
+  "palette": ["powder","lavender","sage","butter","cream","pink","navy","storm","teal","desert"],
+  "styleLock": "Both halves are gpt-image-2 art; the divider is the house style.",
+  "rules": ["Symmetric composition; one idea per side.","Red semantic-only."]
+}

@@ -1,0 +1,19 @@
+{
+  "recipeId": "markup-annotation",
+  "verified": true,
+  "treatment": "image_composite",
+  "composition": "SceneComposite",
+  "description": "The 'narrator draws on the frame' device: a red hand-drawn X, arrow, circle or prohibition mark appears over a held illustration to point at / cross out / emphasize something.",
+  "whenToUse": "Pointing at a detail, crossing something out, a prohibition, an emphasis arrow (e.g. a red arrow at 'Left Hand', a red X over a wrong option).",
+  "generalize": "The base scene, the markup marks (X/arrow/circle), their positions, and any short red word are SLOTS.",
+  "produces": "reuse or gpt-image-2 the base scene as bgUrl; each markup mark = a gpt-image-2 red hand-drawn element (arrow/X/circle) via rembg -> overlay hard-appearing on the spoken word; optional red word via color-key.",
+  "inputPropsTemplate": { "vibrance": { "saturate": 1.32, "contrast": 1.1 }, "grain": true },
+  "slots": {
+    "field": { "type": "paletteField" },
+    "scene": { "type": "shortText", "required": true, "note": "the base illustration being annotated (reuse prior beat's if continuing)" },
+    "marks": { "type": "array", "min": 1, "item": { "kind": { "type": "enum", "values": ["arrow","x","circle","word"] }, "content": "for word: exact red text", "startWord": "when it appears", "xFrac": "pos", "yFrac": "pos", "wFrac": "size" } }
+  },
+  "palette": ["powder","lavender","sage","butter","cream","pink","navy","storm","teal","desert"],
+  "styleLock": "Markup marks are gpt-image-2 red hand-drawn elements (semantic red); any word is gpt-image-2 lettering. Red is semantic-only.",
+  "rules": ["Markup is always semantic RED.","Marks hard-appear on the spoken word.","Reuse the base scene if the annotation continues a prior beat."]
+}

@@ -1,0 +1,11 @@
+{
+  "recipeId": "chart", "verified": true, "treatment": "image_remotion", "composition": "Chart",
+  "description": "A hand-drawn chart/curve that grows over the beat (e.g. an exponential red growth curve).",
+  "whenToUse": "A trend/growth/decline beat with a curve or line.",
+  "generalize": "The curve shape, axis labels, and colour are SLOTS.",
+  "produces": "Chart composition draws + animates the curve; labels = gpt-image-2 lettering.",
+  "slots": { "field": {"type":"paletteField","required":true}, "shape": {"type":"enum","values":["exponential","linear","decline"]}, "axisLabels": {"type":"array"} },
+  "palette": ["powder","lavender","sage","butter","cream","pink","navy","storm","teal","desert"],
+  "styleLock": "Chart structure is house style; a growth curve is often semantic red.",
+  "rules": ["Animate the curve growing over the beat.","Red for a threatening/exponential curve."]
+}

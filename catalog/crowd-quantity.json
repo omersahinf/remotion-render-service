@@ -1,0 +1,20 @@
+{
+  "recipeId": "crowd-quantity",
+  "verified": true,
+  "treatment": "image_composite",
+  "composition": "SceneComposite",
+  "description": "A quantity of PEOPLE drawn as a crowd of tiny identical figures filling the frame, with a big headline number over it. The rare one can be singled out (circled/glowing/colored).",
+  "whenToUse": "A population / how-many-people beat ('8 billion', '1.4 billion', '500 people', '1 in 10').",
+  "generalize": "The crowd density, the number, and whether one figure is singled out are SLOTS. The number is the emphasis (often red).",
+  "produces": "gpt-image-2 crowd of tiny figures as bgUrl; the big number = gpt-image-2 lettering (title-bold, red for magnitude) hard-appearing overlay; an optional 'one singled out' marker overlay.",
+  "inputPropsTemplate": { "vibrance": { "saturate": 1.32, "contrast": 1.1 }, "grain": true },
+  "slots": {
+    "field": { "type": "paletteField", "required": true },
+    "crowd": { "type": "shortText", "required": true, "note": "SHORT description of the crowd (uniform vs diverse; density)" },
+    "number": { "type": "shortText", "note": "the headline number, e.g. '8 Billion' (title-bold, usually red)" },
+    "singleOut": { "type": "boolean", "default": false, "note": "circle/mark one figure (for a '1 in N' ratio)" }
+  },
+  "palette": ["powder","lavender","sage","butter","cream","pink","navy","storm","teal","desert"],
+  "styleLock": "Crowd = gpt-image-2 art; number = gpt-image-2 lettering (title-bold). White-bodied figures.",
+  "rules": ["Population is always tiny identical bodies.","The number hard-appears (title voice, red for magnitude).","For '1 in N', single out one figure."]
+}
