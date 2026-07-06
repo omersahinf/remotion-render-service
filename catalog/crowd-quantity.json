@@ -15,6 +15,6 @@
     "singleOut": { "type": "boolean", "default": false, "note": "circle/mark one figure (for a '1 in N' ratio)" }
   },
   "palette": ["powder","lavender","sage","butter","cream","pink","navy","storm","teal","desert"],
-  "styleLock": "Crowd = gpt-image-2 art; number = gpt-image-2 lettering (title-bold). White-bodied figures.",
+  "styleLock": "Crowd = gpt-image-2 art; number = gpt-image-2 lettering (title-bold).",
   "rules": ["Population is always tiny identical bodies.","The number hard-appears (title voice, red for magnitude).","For '1 in N', single out one figure."]
 }
