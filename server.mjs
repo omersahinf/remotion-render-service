@@ -159,6 +159,19 @@ const listAll = async (prefix) => {
   } while (token);
   return keys;
 };
+// key -> last-modified epoch (for cache-busting re-uploaded assets on the same key)
+const listMeta = async (prefix) => {
+  const meta = new Map();
+  let token;
+  do {
+    const out = await s3.send(
+      new ListObjectsV2Command({ Bucket: minioBucket, Prefix: prefix, ContinuationToken: token }),
+    );
+    for (const o of out.Contents || []) meta.set(o.Key, Math.floor(new Date(o.LastModified).getTime() / 1000));
+    token = out.IsTruncated ? out.NextContinuationToken : undefined;
+  } while (token);
+  return meta;
+};
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'})[c]);
 const pageShell = (title, body) => `<!doctype html><html><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1"><title>${esc(title)}</title>
@@ -201,7 +214,8 @@ app.get('/preview/:video', async (req, res) => {
     const video = req.params.video;
     const base = `past-tense/${video}/`;
     const keys = await listAll(base);
-    const pub = (k) => `${publicBaseUrl}/${minioBucket}/${k}`;
+    const meta = await listMeta(base);
+    const pub = (k) => `${publicBaseUrl}/${minioBucket}/${k}?v=${meta.get(k) || 0}`;
     const chunkNums = [...new Set(
       keys.map((k) => (k.match(/render\/c(\d+)_beat_/) || [])[1]).filter(Boolean),
     )].map(Number).sort((a, b) => a - b);
