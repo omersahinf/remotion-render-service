@@ -166,8 +166,22 @@ const pageShell = (title, body) => `<!doctype html><html><head><meta charset="ut
 a{color:#8ecdf7}h1,h2{font-weight:600}img,video{width:100%;border-radius:10px;background:#000}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
 .card{background:#1d2129;border-radius:12px;padding:10px}.muted{color:#9aa3b2;font-size:13px}
-pre{white-space:pre-wrap;background:#1d2129;padding:12px;border-radius:10px;font-size:12px;overflow-x:auto}</style>
-</head><body>${body}</body></html>`;
+pre{white-space:pre-wrap;background:#1d2129;padding:12px;border-radius:10px;font-size:12px;overflow-x:auto}
+.grid img{cursor:zoom-in}
+#lb{position:fixed;inset:0;background:rgba(0,0,0,.93);display:none;align-items:center;justify-content:center;z-index:99;padding:10px}
+#lb.open{display:flex}#lb img{width:auto;max-width:98vw;max-height:98vh;border-radius:8px;background:#000}
+#lb .hint{position:fixed;top:10px;right:14px;color:#9aa3b2;font-size:13px}</style>
+</head><body>${body}
+<div id="lb"><span class="hint">tıkla / Esc kapat</span></div>
+<script>
+(function(){var lb=document.getElementById('lb');
+document.addEventListener('click',function(e){var t=e.target;
+ if(t.tagName==='IMG'&&t.closest('.grid')){lb.querySelectorAll('img').forEach(function(i){i.remove()});
+  var big=document.createElement('img');big.src=t.src;lb.appendChild(big);lb.classList.add('open');}
+ else if(t.closest('#lb')){lb.classList.remove('open');}});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')lb.classList.remove('open');});})();
+</script>
+</body></html>`;
 
 app.get('/preview', async (_req, res) => {
   try {
